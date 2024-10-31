@@ -56,6 +56,16 @@ export const searchTool = ({ uiStream, fullResponse }: ToolProps) =>
           // API route for advanced SearXNG search
           const baseUrl =
             process.env.NEXT_PUBLIC_BASE_URL || 'http://localhost:3000'
+
+          // Add your default domains here
+          const defaultIncludeDomains = [
+            'ramseysolutions.com',
+            'www.ramseysolutions.com'
+          ]
+          const mergedIncludeDomains = defaultIncludeDomains
+            .concat(include_domains || [])
+            .filter((domain, index, self) => self.indexOf(domain) === index)
+
           const response = await fetch(`${baseUrl}/api/advanced-search`, {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
@@ -63,7 +73,7 @@ export const searchTool = ({ uiStream, fullResponse }: ToolProps) =>
               query: filledQuery,
               maxResults: max_results,
               searchDepth: effectiveSearchDepth,
-              includeDomains: include_domains,
+              includeDomains: mergedIncludeDomains, // Use merged domains
               excludeDomains: exclude_domains
             })
           })
@@ -120,6 +130,16 @@ async function tavilySearch(
   if (!apiKey) {
     throw new Error('TAVILY_API_KEY is not set in the environment variables')
   }
+
+  // Add your default domains here
+  const defaultIncludeDomains = [
+    'ramseysolutions.com',
+    'www.ramseysolutions.com'
+  ]
+  const mergedIncludeDomains = defaultIncludeDomains
+    .concat(includeDomains || [])
+    .filter((domain, index, self) => self.indexOf(domain) === index)
+
   const includeImageDescriptions = true
   const response = await fetch('https://api.tavily.com/search', {
     method: 'POST',
@@ -134,7 +154,7 @@ async function tavilySearch(
       include_images: true,
       include_image_descriptions: includeImageDescriptions,
       include_answers: true,
-      include_domains: includeDomains,
+      include_domains: mergedIncludeDomains, // Use merged domains here
       exclude_domains: excludeDomains
     })
   })

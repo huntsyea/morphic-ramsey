@@ -3,20 +3,20 @@ import { ArrowRight } from 'lucide-react'
 
 const exampleMessages = [
   {
-    heading: 'What is OpenAI o1?',
-    message: 'What is OpenAI o1?'
+    heading: 'Should I take out a loan to buy a car?',
+    message: 'Should I take out a loan to buy a car?'
   },
   {
-    heading: 'Why is Nvidia growing rapidly?',
-    message: 'Why is Nvidia growing rapidly?'
+    heading: 'When should I get an umbrella policy?',
+    message: 'When should I get an umbrella policy?'
   },
   {
-    heading: 'Tesla vs Rivian',
-    message: 'Tesla vs Rivian'
+    heading: 'My husband wants to finance a car. What should I do?',
+    message: 'My husband wants to finance a car. What should I do?'
   },
   {
-    heading: 'Summary: https://arxiv.org/pdf/2407.16833',
-    message: 'Summary: https://arxiv.org/pdf/2407.16833'
+    heading: 'Is debt consolidation a good idea?',
+    message: 'Is debt consolidation a good idea?'
   }
 ]
 export function EmptyScreen({
