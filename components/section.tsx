@@ -1,7 +1,12 @@
 'use client'
 
+import { ReactNode } from 'react'
 import { cn } from '@/lib/utils'
+import { Separator } from './ui/separator'
+import { Button } from './ui/button'
 import {
+  Check,
+  Copy,
   BookCheck,
   Film,
   Image,
@@ -10,30 +15,32 @@ import {
   Repeat2,
   Search
 } from 'lucide-react'
-import React from 'react'
-import { Separator } from './ui/separator'
+import { useCopyToClipboard } from '@/lib/hooks/use-copy-to-clipboard'
 
-type SectionProps = {
-  children: React.ReactNode
-  className?: string
-  size?: 'sm' | 'md' | 'lg'
+interface SectionProps {
+  children: ReactNode
   title?: string
+  className?: string
   separator?: boolean
+  size?: 'sm' | 'md' | 'lg'
+  content?: string
 }
 
-export const Section: React.FC<SectionProps> = ({
+export function Section({
   children,
-  className,
-  size = 'md',
   title,
-  separator = false
-}) => {
+  className,
+  separator = false,
+  size = 'md',
+  content
+}: SectionProps) {
+  const { isCopied, copyToClipboard } = useCopyToClipboard({ timeout: 2000 })
   const iconSize = 16
   const iconClassName = 'mr-1.5 text-muted-foreground'
-  let icon: React.ReactNode
+
+  let icon: ReactNode
   switch (title) {
     case 'Images':
-      // eslint-disable-next-line jsx-a11y/alt-text
       icon = <Image size={iconSize} className={iconClassName} />
       break
     case 'Videos':
@@ -55,20 +62,43 @@ export const Section: React.FC<SectionProps> = ({
       icon = <Search size={iconSize} className={iconClassName} />
   }
 
+  const handleCopy = () => {
+    if (content) {
+      copyToClipboard(content)
+    }
+  }
+
   return (
     <>
       {separator && <Separator className="my-2 bg-primary/10" />}
       <section
         className={cn(
-          ` ${size === 'sm' ? 'py-1' : size === 'lg' ? 'py-4' : 'py-2'}`,
+          `${size === 'sm' ? 'py-1' : size === 'lg' ? 'py-4' : 'py-2'}`,
           className
         )}
       >
         {title && (
-          <h2 className="flex items-center leading-none py-2">
-            {icon}
-            {title}
-          </h2>
+          <div className="flex items-center justify-between py-2">
+            <h2 className="flex items-center leading-none">
+              {icon}
+              {title}
+            </h2>
+            {content && (
+              <Button
+                variant="ghost"
+                size="icon"
+                className="h-8 w-8"
+                onClick={handleCopy}
+              >
+                {isCopied ? (
+                  <Check className="h-4 w-4" />
+                ) : (
+                  <Copy className="h-4 w-4" />
+                )}
+                <span className="sr-only">Copy content</span>
+              </Button>
+            )}
+          </div>
         )}
         {children}
       </section>

@@ -41,18 +41,14 @@ export const searchTool = ({ uiStream, fullResponse }: ToolProps) =>
       const searchAPI =
         (process.env.SEARCH_API as 'tavily' | 'exa' | 'searxng') || 'tavily'
 
-      const effectiveSearchDepth =
-        searchAPI === 'searxng' &&
-        process.env.SEARXNG_DEFAULT_DEPTH === 'advanced'
-          ? 'advanced'
-          : search_depth || 'basic'
+      const effectiveSearchDepth = 'basic'
 
       console.log(
         `Using search API: ${searchAPI}, Search Depth: ${effectiveSearchDepth}`
       )
 
       try {
-        if (searchAPI === 'searxng' && effectiveSearchDepth === 'advanced') {
+        if (searchAPI === 'searxng' && effectiveSearchDepth === 'basic') {
           // API route for advanced SearXNG search
           const baseUrl =
             process.env.NEXT_PUBLIC_BASE_URL || 'http://localhost:3000'
@@ -91,7 +87,7 @@ export const searchTool = ({ uiStream, fullResponse }: ToolProps) =>
             : searxngSearch)(
             filledQuery,
             max_results,
-            effectiveSearchDepth === 'advanced' ? 'advanced' : 'basic',
+            effectiveSearchDepth === 'basic' ? 'advanced' : 'basic',
             include_domains,
             exclude_domains
           )

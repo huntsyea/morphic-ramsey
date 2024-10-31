@@ -4,7 +4,6 @@ import './globals.css'
 import { cn } from '@/lib/utils'
 import { ThemeProvider } from '@/components/theme-provider'
 import Header from '@/components/header'
-import Footer from '@/components/footer'
 import { Sidebar } from '@/components/sidebar'
 import { Toaster } from '@/components/ui/sonner'
 import { AppStateProvider } from '@/lib/utils/app-state'
@@ -14,9 +13,9 @@ const fontSans = FontSans({
   variable: '--font-sans'
 })
 
-const title = 'Morphic'
+const title = 'Ramsey Advice POC'
 const description =
-  'A fully open-source AI-powered answer engine with a generative UI.'
+  'An AI-powered engine to help craft your own answers to questions.'
 
 export const metadata: Metadata = {
   metadataBase: new URL('https://morphic.sh'),
@@ -30,7 +29,7 @@ export const metadata: Metadata = {
     title,
     description,
     card: 'summary_large_image',
-    creator: '@miiura'
+    creator: '@huntsyea'
   }
 }
 

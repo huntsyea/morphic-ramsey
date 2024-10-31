@@ -19,6 +19,12 @@ export function SearchSection({ result, includeDomains }: SearchSectionProps) {
   const includeDomainsString = includeDomains
     ? ` [${includeDomains.join(', ')}]`
     : ''
+
+  if (error) {
+    console.error('Search error:', error)
+    return <div>Error loading search results. Please try again.</div>
+  }
+
   return (
     <div>
       {!pending && data ? (

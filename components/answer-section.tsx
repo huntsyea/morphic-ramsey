@@ -6,7 +6,7 @@ import { BotMessage } from './message'
 import { useEffect, useState } from 'react'
 import { DefaultSkeleton } from './default-skeleton'
 
-export type AnswerSectionProps = {
+interface AnswerSectionProps {
   result?: StreamableValue<string>
   hasHeader?: boolean
 }
@@ -26,7 +26,7 @@ export function AnswerSection({
   return (
     <div>
       {content.length > 0 ? (
-        <Section title={hasHeader ? 'Answer' : undefined}>
+        <Section title={hasHeader ? 'Answer' : undefined} content={content}>
           <BotMessage content={content} />
         </Section>
       ) : (

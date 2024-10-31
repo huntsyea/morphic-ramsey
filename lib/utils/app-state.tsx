@@ -1,6 +1,13 @@
 'use client'
 
-import { createContext, useState, ReactNode, useContext } from 'react'
+import {
+  createContext,
+  useState,
+  ReactNode,
+  useContext,
+  useEffect
+} from 'react'
+import { usePathname } from 'next/navigation'
 
 const AppStateContext = createContext<
   | {
@@ -12,6 +19,14 @@ const AppStateContext = createContext<
 
 export const AppStateProvider = ({ children }: { children: ReactNode }) => {
   const [isGenerating, setIsGenerating] = useState(false)
+  const pathname = usePathname()
+
+  // Reset state when navigating to home
+  useEffect(() => {
+    if (pathname === '/') {
+      setIsGenerating(false)
+    }
+  }, [pathname])
 
   return (
     <AppStateContext.Provider value={{ isGenerating, setIsGenerating }}>
