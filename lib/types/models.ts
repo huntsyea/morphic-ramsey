@@ -7,8 +7,8 @@ export interface Model {
 
 export const models: Model[] = [
   {
-    id: 'gpt-4o-mini',
-    name: 'GPT-4o mini',
+    id: 'gpt-4o',
+    name: 'GPT-4o',
     provider: 'OpenAI',
     providerId: 'openai'
   },
