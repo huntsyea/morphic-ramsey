@@ -17,7 +17,7 @@ export const models: Model[] = [
     name: 'GPT-o4',
     provider: 'OpenAI',
     providerId: 'openai'
-  }
+  },
   {
     id: process.env.NEXT_PUBLIC_OPENAI_COMPATIBLE_MODEL || 'undefined',
     name: process.env.NEXT_PUBLIC_OPENAI_COMPATIBLE_MODEL || 'Undefined',
